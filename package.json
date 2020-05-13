@@ -1,6 +1,6 @@
 {
-  "name": "vc-plugin-boilerplate",
-  "version": "1.0.0",
+  "name": "yogi-vc-journal-posts",
+  "version": "0.0.1",
   "description": "",
   "main": "gulpfile.js",
   "scripts": {

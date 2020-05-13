@@ -1,0 +1,176 @@
+$excerpt-lh: 1.4rem;
+$excerpt-max_lines: 3;
+
+$grey: #5f5c5a;
+$blue: #6f7bd4;
+
+@mixin card-shadow {
+  box-shadow: 0 0.7px 1px rgba(0, 0, 0, 0.023),
+    0 2.2px 3.4px rgba(0, 0, 0, 0.033), 0 10px 15px rgba(0, 0, 0, 0.08);
+}
+
+.journal-posts {
+  &__inner {
+  }
+
+  &__posts {
+    display: grid;
+    grid-gap: 1.1em;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: minmax(450px, auto);
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+}
+
+.journal-post {
+  background: #fff;
+
+  @include card-shadow();
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  &__media {
+    position: relative;
+    flex-basis: 100%;
+    &:hover {
+      &::after {
+        opacity: 1;
+      }
+    }
+    a {
+      height: 100%;
+      display: block;
+      width: 100%;
+      background: #d4d4d4;
+      position: relative;
+      span {
+        width: 100%;
+        height: 100%;
+        background-image: url(http://yogi.local/wp-content/uploads/2020/05/pexels-photo-823694.jpeg);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+      }
+    }
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      pointer-events: none;
+      transition: 0.3s ease-out;
+    }
+  }
+  &__content {
+    flex-basis: 70%;
+    flex-grow: 1;
+    padding: 1rem 1rem 0;
+    h4 {
+      margin-top: 0;
+
+      a {
+        color: black;
+        &:hover {
+          color: lighten(black, 50%) !important;
+        }
+      }
+    }
+    p {
+      line-height: $excerpt_lh;
+      color: #9a908c;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+  }
+  &__readmore {
+    padding: 0rem 1rem 1rem;
+    a {
+      color: $blue !important;
+      font-weight: 600;
+      &:hover {
+        color: darken($blue, 25%) !important;
+      }
+    }
+  }
+}
+
+html body .main-wrapper > .main-container .journal-post-pagination-btn {
+  &--page {
+  }
+  &--next {
+  }
+  &--prev {
+  }
+
+  &__inner {
+    width: 30px;
+    height: 30px;
+
+    border: 1px solid #dbd4c8;
+    background: transparent;
+
+    > a.journal-post-pagination-btn__link {
+      margin: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      > small,
+      span {
+        color: lighten(#5f5c5a, 35%) !important;
+        font-weight: 500;
+        display: block;
+        margin: 0 !important;
+      }
+      span {
+      }
+    }
+    &--active {
+      background: #ebe5dc;
+      > a.journal-post-pagination-btn__link > small {
+        color: $grey !important;
+        font-weight: 900 !important;
+      }
+    }
+
+    &:hover {
+      background: #ebe5dc;
+    }
+  }
+}
+
+.truncate-overflow {
+  max-height: calc(#{$excerpt_lh} * #{$excerpt_max_lines});
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  &::after {
+    content: "";
+    position: absolute;
+    right: 0; /* note: not using bottom */
+    width: 100px;
+    height: $excerpt-lh;
+    bottom: 0;
+    background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+  }
+}
