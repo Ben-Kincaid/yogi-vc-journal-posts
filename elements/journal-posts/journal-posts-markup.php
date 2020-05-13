@@ -68,7 +68,7 @@ function journal_posts_markup()
     $query = new WP_Query($args);
 
 
-    $current_pagination_range = range(min(max(1, $paged - 3), max($query->max_num_pages - 7, 1)), min(max(1, $paged - 3), max(1, $query->max_num_pages - 7)) + 6);
+    $current_pagination_range = range(min(max(1, $paged - 3), max($query->max_num_pages - 7, 1)), $query->max_num_pages <= 7 ? $query->max_num_pages : min(max(1, $paged - 3), max(1, $query->max_num_pages - 7)) + 6);
     wp_reset_postdata();
     wp_reset_query();
 ?>
@@ -80,11 +80,16 @@ function journal_posts_markup()
                 <?php endwhile; ?>
             </div>
             <div class="journal-posts__pagination">
-                <?= journal_post_pagination_btn($paged, 'prev'); ?>
+                <?php if ($paged > 1) : ?>
+                    <?= journal_post_pagination_btn($paged, 'prev'); ?>
+                <?php endif; ?>
                 <?php foreach ($current_pagination_range as $page_index) : ?>
                     <?= journal_post_pagination_btn($paged, 'page', $page_index); ?>
                 <?php endforeach; ?>
-                <?= journal_post_pagination_btn($paged, 'next'); ?>
+
+                <?php if ($paged < $query->max_num_pages) : ?>
+                    <?= journal_post_pagination_btn($paged, 'next'); ?>
+                <?php endif; ?>
             </div>
         </div>
     </div>
